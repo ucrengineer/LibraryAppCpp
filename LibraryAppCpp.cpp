@@ -43,6 +43,7 @@ int main()
 
             int id = _inventory.Books.size() + 1;
             Book newBook(id, title, author);
+        
             _inventory.AddBook(newBook);
             break;
         }
@@ -61,9 +62,58 @@ int main()
 
         }
         case 3:
+        {
+            cout << "Enter a book title to check out: ";
+            string title;
+            getline(cin, title);
+            Book foundBook;
+            if (_inventory.FindBookByTitle(title, foundBook)) 
+            {
+                if (!foundBook.CheckedOut)
+                {
+                    cout << "Book already checked in" << endl;
+                    break;
+
+                }
+                _inventory.CheckOutBook(foundBook);
+                cout << "Book checked out!" << endl;
+            }
+            else
+            {
+                cout << "Book not found" << endl;
+
+            }
+
             break;
+
+        }
         case 4: 
+        {
+            cout << "Enter a book title to check in: ";
+            string title;
+            getline(cin, title);
+            Book foundBook;
+            if (_inventory.FindBookByTitle(title, foundBook))
+            {
+                if (!foundBook.CheckedOut)
+                {
+                    cout << "Book already checked in" << endl;
+                    break;
+
+                }
+                
+                _inventory.CheckInBook(foundBook);
+                cout << "Book checked in!" << endl;
+            }
+            else
+            {
+                cout << "Book not found" << endl;
+
+            }
+
             break;
+
+        }
         default:
             cout << "Invalid selection. Try again." << endl;
             break;
